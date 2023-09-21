@@ -1,11 +1,11 @@
-const { Service } = require("../../models");
+const { Menu } = require("../../models");
 
-const deleteServices = async (req, res, next) => {
+const deleteMenu = async (req, res, next) => {
   try {
     const { user, params } = req;
     const _id = params.id;
 
-    const services = await Service.deleteOne({ _id });
+    const services = await Menu.deleteOne({ _id });
     if (services.deletedCount === 0) {
       return res.status(400).json({ message: `Bad request (id incorrect)` });
     }
@@ -15,4 +15,4 @@ const deleteServices = async (req, res, next) => {
   }
 };
 
-module.exports = deleteServices;
+module.exports = deleteMenu;

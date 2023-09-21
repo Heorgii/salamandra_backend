@@ -28,16 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/auth', routerAuth);
-app.use('/api/get_event', routerEvent);
-app.use('/api/batch_event', routerUpdateEvent);
-app.use('/api/owner', routerOwner);
-app.use('/api/user', routerUser);
-app.use('/api/services', routerServices);
-app.use('/api/message', routerMessage);
-app.use('/api/admin', routerAdmin);
-app.use('/api/developers', routerDevelopers);
+app.use('/api/menu', routerMenu);
 
-// app.use('/api/location', ctrl.location);
 
 app.use((req, res) => {
   console.log('!!!!! APP (req, res) !!!!!!');

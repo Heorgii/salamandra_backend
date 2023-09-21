@@ -1,7 +1,7 @@
 const express = require("express");
 const { auth: ctrl } = require("../../controllers");
 const { ctrlWrapper, authMiddleware } = require("../../middleWares");
-const { validation, uploadCloud } = require("../../middleWares");
+const { validation } = require("../../middleWares");
 const {
   userValidationSchema,
   userUpdateValidationSchema,
@@ -26,7 +26,7 @@ router.post("/", ctrlWrapper(authMiddleware), ctrlWrapper(ctrl.current));
 router.patch(
   "/user/:id",
   ctrlWrapper(authMiddleware),
-  uploadCloud.single("avatar"),
+  // uploadCloud.single("avatar"),
   validation(userUpdateValidationSchema),
   ctrlWrapper(ctrl.update)
 );
