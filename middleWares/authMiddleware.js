@@ -4,13 +4,6 @@ const { dataFilter, userMainField, UnauthorizedError } = require('../helpers');
 
 const { SECRET_KEY } = process.env;
 
-// const errorTokenExpired = error => {
-//   if (error.message === 'jwt expired') {
-//     const err = createError(500, 'Token expired');
-//     throw err;
-//   }
-// };
-
 const authMiddleware = async (req, res, next) => {
   const { authorization = '' } = req.headers;
   const [authType, token] = authorization.split(' ');

@@ -1,12 +1,12 @@
 const { ValidationError } = require("../../helpers");
-const { Service } = require("../../models");
+const { Menu } = require("../../models");
 const { dataFilterObj } = require("../../helpers");
 
-const updateService = async (req, res, next) => {
+const updateMenu = async (req, res, next) => {
   const { id } = req.params;
   try {
     const newData = dataFilterObj(req.body);
-    const resUpdate = await Service.findByIdAndUpdate({ _id: id }, newData, {
+    const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, newData, {
       new: true,
     });
     const newResponse = dataFilterObj(resUpdate);
@@ -16,4 +16,4 @@ const updateService = async (req, res, next) => {
   }
 };
 
-module.exports = updateService;
+module.exports = updateMenu;
