@@ -1,32 +1,31 @@
-const express = require("express");
-const { auth: ctrl } = require("../../controllers");
-const { ctrlWrapper, authMiddleware } = require("../../middleWares");
-const { validation } = require("../../middleWares");
+const express = require('express');
+const { auth: ctrl } = require('../../controllers');
+const { ctrlWrapper, authMiddleware } = require('../../middleWares');
+const { validation } = require('../../middleWares');
 const {
   userValidationSchema,
   userUpdateValidationSchema,
-} = require("../../models");
+} = require('../../models');
 
 const router = express.Router();
 
 router.post(
-  "/signin",
+  '/signin',
   // validation(userValidationSchema),
   ctrlWrapper(ctrl.signin)
 );
 router.post(
-  "/signup",
-  validation(userValidationSchema),
+  '/signup',
+  // validation(userValidationSchema),
   ctrlWrapper(ctrl.signup)
 );
 
-router.post("/logout", ctrlWrapper(authMiddleware), ctrlWrapper(ctrl.logout));
-router.post("/", ctrlWrapper(authMiddleware), ctrlWrapper(ctrl.current));
+router.post('/logout', ctrlWrapper(authMiddleware), ctrlWrapper(ctrl.logout));
+router.post('/', ctrlWrapper(authMiddleware), ctrlWrapper(ctrl.current));
 
 router.patch(
-  "/user/:id",
+  '/user/:id',
   ctrlWrapper(authMiddleware),
-  // uploadCloud.single("avatar"),
   validation(userUpdateValidationSchema),
   ctrlWrapper(ctrl.update)
 );

@@ -11,7 +11,7 @@ const menuValidationSchema = Joi.object({
   details: Joi.array(),
   price: Joi.number().min(1).max(32).required(),
   currency: Joi.string(),
-  img: Joi.string().min(3).max(32),
+  images: Joi.string().min(3).max(32),
   admin: Joi.string().min(3).max(32),
 });
 

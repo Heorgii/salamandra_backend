@@ -5,34 +5,26 @@ const { ctrlWrapper, authMiddleware, upload } = require('../../middleWares');
 
 const router = express.Router();
 
-router.get(
-  '/',
-  // ctrlWrapper(authMiddleware),
-  ctrlWrapper(menu.getMenu)
-);
+router.get('/', ctrlWrapper(authMiddleware), ctrlWrapper(menu.getMenu));
 
 router.post(
   '/create',
-  // ctrlWrapper(authMiddleware),
+  ctrlWrapper(authMiddleware),
   ctrlWrapper(menu.createMenu),
   upload.single('images')
 );
 
-router.get(
-  '/:id',
-  // ctrlWrapper(authMiddleware),
-  ctrlWrapper(menu.getMenuById)
-);
+router.get('/:id', ctrlWrapper(authMiddleware), ctrlWrapper(menu.getMenuById));
 
 router.delete(
   '/:id',
-  // ctrlWrapper(authMiddleware),
+  ctrlWrapper(authMiddleware),
   ctrlWrapper(menu.deleteMenu)
 );
 
 router.patch(
   '/:id',
-  // ctrlWrapper(authMiddleware),
+  ctrlWrapper(authMiddleware),
   upload.single('images'),
   ctrlWrapper(menu.updateMenu)
 );
