@@ -1,7 +1,7 @@
 const express = require('express');
 const { menu } = require('../../controllers');
 
-const { ctrlWrapper, authMiddleware } = require('../../middleWares');
+const { ctrlWrapper, authMiddleware, upload } = require('../../middleWares');
 
 const router = express.Router();
 
@@ -14,7 +14,8 @@ router.get(
 router.post(
   '/create',
   // ctrlWrapper(authMiddleware),
-  ctrlWrapper(menu.createMenu)
+  ctrlWrapper(menu.createMenu),
+  upload.single('images')
 );
 
 router.get(
@@ -32,6 +33,7 @@ router.delete(
 router.patch(
   '/:id',
   // ctrlWrapper(authMiddleware),
+  upload.single('images'),
   ctrlWrapper(menu.updateMenu)
 );
 
