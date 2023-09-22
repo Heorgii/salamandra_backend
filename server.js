@@ -1,10 +1,10 @@
+const path = require("path");
 require("dotenv").config();
 const app = require("./app");
 
 const mongoose = require("mongoose");
 
 const { PORT = 3030, DB_HOST } = process.env;
-
 
 const connectDB = async () => {
   try {

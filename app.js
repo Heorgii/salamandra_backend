@@ -18,6 +18,9 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static('images'));
+app.use("/uploads", express.static(`${__dirname}/images`));
+
 app.use('/api/auth', routerAuth);
 app.use('/api/menu', routerMenu);
 app.use('/api/admin', routerAdmin);
