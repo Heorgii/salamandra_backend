@@ -5,30 +5,26 @@ require('mongoose-type-email');
 require('mongoose-type-url');
 
 const userValidationSchema = Joi.object({
-  userName: Joi.string().min(3).max(32).required(),
+  name: Joi.string().min(3).max(32).required(),
   email: Joi.string().email().required(),
+
   password: Joi.string().min(7).max(32).required(),
-  location: Joi.string().required(),
   phone: Joi.string().min(7).max(13).required(),
-  birthday: Joi.date(),
-  avatar: Joi.string().uri(),
   role: Joi.string().valid('user', 'admin'),
 });
 
 const userUpdateValidationSchema = Joi.object({
-  userName: Joi.string().min(3).max(32),
+  name: Joi.string().min(3).max(32),
   email: Joi.string().email(),
+
   password: Joi.string().min(7).max(32),
-  location: Joi.string(),
-  phone: Joi.string().min(7).max(32),
-  birthday: Joi.date(),
-  avatar: Joi.string().uri(),
+  phone: Joi.string().min(7).max(13).required(),
   role: Joi.string().valid('user', 'admin'),
 });
 
 const UsersSchema = new mongoose.Schema(
   {
-    userName: {
+    name: {
       type: String,
       required: [true, 'Set user name'],
     },
@@ -40,22 +36,6 @@ const UsersSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Set password'],
-    },
-    location: {
-      type: String,
-      required: [true, 'Set comments for pet'],
-    },
-    phone: {
-      type: String,
-      required: [true, 'Set phone Number'],
-    },
-    birthday: {
-      type: Date,
-      // required: [false, 'Set birthday user'],
-    },
-    avatar: {
-      type: mongoose.SchemaTypes.Url,
-      default: '',
     },
     isActivate: {
       type: Boolean,
@@ -72,7 +52,7 @@ const UsersSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ['user', 'admin'],
-      default: 'user',
+      default: 'admin',
     },
   },
   {
