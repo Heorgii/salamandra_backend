@@ -19,7 +19,12 @@ const MenuSchema = new mongoose.Schema(
   {
     article: {
       type: Number,
+      unique: true,
       required: [true, "Set article of item"],
+    },
+    active: {
+      type: Boolean,
+      default: false,
     },
     product: {
       type: String,
@@ -28,6 +33,9 @@ const MenuSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "Set category of item"],
+    },
+    productua: {
+      type: String,
     },
     name: {
       type: String,
@@ -53,6 +61,7 @@ const MenuSchema = new mongoose.Schema(
     },
     img: {
       type: String,
+      default: "none",
     },
     admin: {
       type: String,
