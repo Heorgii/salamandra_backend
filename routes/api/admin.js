@@ -10,8 +10,8 @@ router.get('/', ctrlWrapper(authMiddleware), ctrlWrapper(menu.getMenu));
 router.post(
   '/create',
   ctrlWrapper(authMiddleware),
-  ctrlWrapper(menu.createMenu),
-  upload.single('images')
+  upload.single('images'),
+  ctrlWrapper(menu.createMenu)
 );
 
 router.get('/:id', ctrlWrapper(authMiddleware), ctrlWrapper(menu.getMenuById));

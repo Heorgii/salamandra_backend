@@ -5,28 +5,24 @@ const { dataFilterObj } = require('../../helpers');
 const updateMenu = async (req, res, next) => {
   const { id } = req.params;
   const body = req.body;
-  const files = req.files;
-
-  const imagesObject = {};
-  Object.values(files).forEach(e => {
-    imagesObject[e[0].fieldname] = e[0].path;
-  });
+  const file = req.file;
 
   const fullData = {
     ...body,
-    imagesObject,
+    images: file?.path,
   };
-  // const newData = dataFilterObj(req.body);
+  console.log('updateMenu ~ fullData:', fullData);
+  const newData = dataFilterObj(fullData);
 
   try {
-    // const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, newData, {
-    //   new: true,
-    // });
-    const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, fullData, {
+    const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, newData, {
       new: true,
     });
+    // const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, fullData, {
+    //   new: true,
+    // });
     const newResponse = dataFilterObj(resUpdate);
-    return res.status(201).json(newResponse);
+    return res.status(201).json(newResponse._doc);
   } catch (err) {
     throw new ValidationError(err.message);
   }
