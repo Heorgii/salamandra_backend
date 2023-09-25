@@ -1,15 +1,14 @@
-const { ValidationError } = require('../../helpers');
-const { Menu } = require('../../models');
+const { ValidationError, dataFilterObj } = require("../../helpers");
+const { Menu } = require("../../models");
+let path = require("path");
 
 const createMenu = async (req, res, next) => {
-  const { body, file } = req;
-  console.log('createMenu ~ body, file:', body, file);
-
+  const newData = dataFilterObj(req.body);
+  req.file?.path
+    ? (newData.images = path.basename(req.file?.path))
+    : (newData.images = path.basename("none"));
   try {
-    const fullData = { ...body, images: file?.path };
-    const resUpdate = await Menu.create(fullData);
-    console.log('createMenu ~ resUpdate:', resUpdate);
-
+    const resUpdate = await Menu.create(newData);
     return res.status(201).json(resUpdate);
   } catch (err) {
     throw new ValidationError(err.message);
