@@ -1,26 +1,18 @@
-const { ValidationError } = require('../../helpers');
-const { Menu } = require('../../models');
-const { dataFilterObj } = require('../../helpers');
+const { ValidationError } = require("../../helpers");
+const { Menu } = require("../../models");
+const { dataFilterObj } = require("../../helpers");
+let path = require("path");
 
 const updateMenu = async (req, res, next) => {
   const { id } = req.params;
-  const body = req.body;
-  const file = req.file;
-
-  const fullData = {
-    ...body,
-    images: file?.path,
-  };
-  console.log('updateMenu ~ fullData:', fullData);
-  const newData = dataFilterObj(fullData);
-
+  const newData = dataFilterObj(req.body);
+  req.file?.path
+    ? (newData.images = path.basename(req.file?.path))
+    : (newData.images = path.basename("none"));
   try {
     const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, newData, {
       new: true,
     });
-    // const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, fullData, {
-    //   new: true,
-    // });
     const newResponse = dataFilterObj(resUpdate);
     return res.status(201).json(newResponse._doc);
   } catch (err) {
