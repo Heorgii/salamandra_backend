@@ -10,10 +10,10 @@ const updateMenu = async (req, res, next) => {
     ? (newData.images = path.basename(req.file?.path))
     : (newData.images = path.basename("none"));
   if (newData.details) {
-    newData.details = newData.details.split(",");
+    newData.details = newData.details.split(";");
   }
   if (newData.alcohol) {
-    newData.alcohol = newData.alcohol.split(",");
+    newData.alcohol = newData.alcohol.split(";");
   }
   try {
     const resUpdate = await Menu.findByIdAndUpdate({ _id: id }, newData, {
